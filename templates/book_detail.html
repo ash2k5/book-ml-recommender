@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }} - AI Book Recommender{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb">
+        <a href="/" class="breadcrumb-link">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">{{ book.title }}</span>
+    </div>
+
+    <div class="book-detail-container">
+        <div class="book-detail-main">
+            <div class="book-header">
+                <h1 class="book-detail-title">{{ book.title }}</h1>
+                <p class="book-detail-author">by {{ book.author }}</p>
+                <div class="book-detail-meta">
+                    <span class="meta-item">
+                        <i class="fas fa-tag"></i>
+                        {{ book.genre }}
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-star"></i>
+                        {{ book.rating }}
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        {{ book.year }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="book-description">
+                <h3>
+                    <i class="fas fa-align-left"></i>
+                    Description
+                </h3>
+                <p>{{ book.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="recommendations-section">
+        <div class="recommendations-header">
+            <h2>
+                <i class="fas fa-magic"></i>
+                AI-Powered Similar Books
+            </h2>
+            <div class="ai-badge">
+                <i class="fas fa-robot"></i>
+                Generated using Machine Learning
+            </div>
+        </div>
+
+        {% if recommendations %}
+        <div class="recommendations-grid">
+            {% for rec in recommendations %}
+            <div class="recommendation-card" onclick="viewBook({{ rec.id }})">
+                <div class="similarity-score">
+                    <span class="score-value">{{ (rec.similarity_score * 100) | round }}%</span>
+                    <span class="score-label">Match</span>
+                </div>
+                <div class="rec-content">
+                    <h3 class="rec-title">{{ rec.title }}</h3>
+                    <p class="rec-author">by {{ rec.author }}</p>
+                    <div class="rec-meta">
+                        <span class="rec-genre">
+                            <i class="fas fa-tag"></i>
+                            {{ rec.genre }}
+                        </span>
+                        <span class="rec-rating">
+                            <i class="fas fa-star"></i>
+                            {{ rec.rating }}
+                        </span>
+                    </div>
+                    <p class="rec-description">{{ rec.description[:80] }}...</p>
+                    <div class="similarity-explanation">
+                        <i class="fas fa-info-circle"></i>
+                        Similar content and themes detected by AI
+                    </div>
+                </div>
+                <div class="rec-action">
+                    <button class="btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        View Details
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="ml-explanation">
+            <div class="explanation-content">
+                <h3>
+                    <i class="fas fa-question-circle"></i>
+                    How These Recommendations Were Generated
+                </h3>
+                <div class="explanation-grid">
+                    <div class="explanation-item">
+                        <i class="fas fa-text-width"></i>
+                        <div>
+                            <strong>Text Analysis</strong>
+                            <p>Analyzed title, author, genre, and description using natural language processing</p>
+                        </div>
+                    </div>
+                    <div class="explanation-item">
+                        <i class="fas fa-vector-square"></i>
+                        <div>
+                            <strong>Vector Similarity</strong>
+                            <p>Converted books into numerical vectors and calculated cosine similarity</p>
+                        </div>
+                    </div>
+                    <div class="explanation-item">
+                        <i class="fas fa-sort-numeric-down"></i>
+                        <div>
+                            <strong>Ranking Algorithm</strong>
+                            <p>Ranked books by similarity score using machine learning algorithms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="no-recommendations">
+            <i class="fas fa-robot"></i>
+            <h3>No recommendations available</h3>
+            <p>Our AI is still learning about this book. Check back soon for personalized recommendations!</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="back-to-home">
+        <a href="/" class="btn-primary">
+            <i class="fas fa-arrow-left"></i>
+            Back to Book Collection
+        </a>
+    </div>
+</div>
+{% endblock %}
