@@ -7,7 +7,7 @@ import pickle
 import os
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Global variables for model and data
 books_df = None
@@ -19,19 +19,15 @@ def load_data():
     global books_df, tfidf_matrix, book_features
 
     try:
-        # Load book dataset
-        if os.path.exists('data/books.csv'):
-            books_df = pd.read_csv('data/books.csv')
+        if os.path.exists('../data/books.csv'):
+            books_df = pd.read_csv('../data/books.csv')
         else:
-            # Create sample data if no dataset exists
             books_df = create_sample_data()
 
-        # Load or create TF-IDF matrix
-        if os.path.exists('models/tfidf_matrix.pkl'):
-            with open('models/tfidf_matrix.pkl', 'rb') as f:
+        if os.path.exists('../models/tfidf_matrix.pkl'):
+            with open('../models/tfidf_matrix.pkl', 'rb') as f:
                 tfidf_matrix = pickle.load(f)
         else:
-            # Create TF-IDF matrix
             tfidf_matrix = create_tfidf_matrix()
 
     except Exception as e:
@@ -92,8 +88,8 @@ def create_sample_data():
     df = pd.DataFrame(sample_books)
 
     # Create data directory if it doesn't exist
-    os.makedirs('data', exist_ok=True)
-    df.to_csv('data/books.csv', index=False)
+    os.makedirs('../data', exist_ok=True)
+    df.to_csv('../data/books.csv', index=False)
 
     return df
 
@@ -104,7 +100,6 @@ def create_tfidf_matrix():
     if books_df is None or books_df.empty:
         return None
 
-    # Combine relevant text features
     books_df['combined_features'] = (
         books_df['title'].fillna('') + ' ' +
         books_df['author'].fillna('') + ' ' +
@@ -112,7 +107,6 @@ def create_tfidf_matrix():
         books_df['description'].fillna('')
     )
 
-    # Create TF-IDF vectorizer
     tfidf = TfidfVectorizer(
         max_features=5000,
         stop_words='english',
@@ -120,14 +114,12 @@ def create_tfidf_matrix():
         min_df=1
     )
 
-    # Fit and transform the combined features
     tfidf_matrix = tfidf.fit_transform(books_df['combined_features'])
 
-    # Save the matrix and vectorizer
-    os.makedirs('models', exist_ok=True)
-    with open('models/tfidf_matrix.pkl', 'wb') as f:
+    os.makedirs('../models', exist_ok=True)
+    with open('../models/tfidf_matrix.pkl', 'wb') as f:
         pickle.dump(tfidf_matrix, f)
-    with open('models/tfidf_vectorizer.pkl', 'wb') as f:
+    with open('../models/tfidf_vectorizer.pkl', 'wb') as f:
         pickle.dump(tfidf, f)
 
     return tfidf_matrix
@@ -140,16 +132,10 @@ def get_book_recommendations(book_id, n_recommendations=5):
         return []
 
     try:
-        # Find the index of the book
         book_idx = books_df[books_df['id'] == book_id].index[0]
-
-        # Calculate cosine similarity
         cosine_similarities = cosine_similarity(tfidf_matrix[book_idx:book_idx+1], tfidf_matrix).flatten()
-
-        # Get indices of most similar books (excluding the book itself)
         similar_indices = cosine_similarities.argsort()[::-1][1:n_recommendations+1]
 
-        # Get the similar books
         similar_books = []
         for idx in similar_indices:
             book = books_df.iloc[idx].to_dict()
@@ -203,7 +189,6 @@ def search():
     if not query or books_df is None:
         return jsonify([])
 
-    # Simple search in title and author
     mask = (
         books_df['title'].str.lower().str.contains(query, na=False) |
         books_df['author'].str.lower().str.contains(query, na=False)
@@ -213,8 +198,5 @@ def search():
     return jsonify(results)
 
 if __name__ == '__main__':
-    # Load data on startup
     load_data()
-
-    # Run the app
     app.run(debug=True, host='0.0.0.0', port=5000)
