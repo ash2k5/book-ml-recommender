@@ -15,9 +15,7 @@ import json
 import random
 
 def get_openlibrary_books(subject, limit=20):
-    """
-    Collect books from Open Library API (free and open)
-    """
+    """Collect books from Open Library API"""
     print(f"Fetching books for subject: {subject}")
 
     url = f"https://openlibrary.org/subjects/{subject}.json"
@@ -71,13 +69,10 @@ def get_openlibrary_books(subject, limit=20):
         return []
 
 def get_gutenberg_books(limit=10):
-    """
-    Get books from Project Gutenberg API (free public domain books)
-    """
+    """Get books from Project Gutenberg API"""
     print("Fetching books from Project Gutenberg...")
 
     try:
-        # Get popular books from Gutenberg
         url = "https://www.gutenberg.org/ebooks/search/?sort_order=downloads"
         headers = {
             'User-Agent': 'Mozilla/5.0 (Educational Book Recommender Project)'
@@ -85,9 +80,6 @@ def get_gutenberg_books(limit=10):
 
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
-
-        # This is a simplified example - in practice, you'd parse the HTML
-        # For demonstration, we'll create some classic literature entries
         classic_books = [
             {
                 'id': 'gutenberg_1',
@@ -144,9 +136,7 @@ def get_gutenberg_books(limit=10):
         return []
 
 def create_sample_dataset():
-    """
-    Create a comprehensive sample dataset for ML training
-    """
+    """Create sample dataset for ML training"""
     print("Creating extended sample dataset...")
 
     # Extended sample with more diverse books
@@ -246,10 +236,8 @@ def create_sample_dataset():
     return sample_books
 
 def collect_all_books():
-    """
-    Main function to collect books from all sources
-    """
-    print("🚀 Starting Book Data Collection")
+    """Main function to collect books from all sources"""
+    print("Starting Book Data Collection")
     print("=" * 50)
 
     all_books = []
@@ -259,7 +247,7 @@ def collect_all_books():
     for subject in subjects:
         books = get_openlibrary_books(subject, limit=5)
         all_books.extend(books)
-        time.sleep(1)  # Be respectful to the API
+        time.sleep(1)
 
     # Add Project Gutenberg books
     gutenberg_books = get_gutenberg_books(limit=5)
@@ -272,51 +260,36 @@ def collect_all_books():
     return all_books
 
 def clean_and_process_data(books):
-    """
-    Clean and process the collected book data
-    """
-    print("📚 Processing and cleaning book data...")
+    """Clean and process the collected book data"""
+    print("Processing and cleaning book data...")
 
-    # Convert to DataFrame for easier processing
     df = pd.DataFrame(books)
-
-    # Remove duplicates based on title and author
     df = df.drop_duplicates(subset=['title', 'author'], keep='first')
 
-    # Clean text fields
     df['title'] = df['title'].str.strip()
     df['author'] = df['author'].str.strip()
     df['description'] = df['description'].str.strip()
 
-    # Fill missing values
     df['author'] = df['author'].fillna('Unknown Author')
     df['description'] = df['description'].fillna('No description available')
     df['rating'] = df['rating'].fillna(3.5)
     df['year'] = df['year'].fillna(2000)
 
-    # Ensure ratings are in valid range
     df['rating'] = df['rating'].clip(0, 5)
-
-    # Ensure years are reasonable
     df['year'] = df['year'].clip(1800, 2024)
 
-    print(f"✅ Processed {len(df)} books")
+    print(f"Processed {len(df)} books")
     return df
 
 def save_dataset(df, filename='books.csv'):
-    """
-    Save the dataset to CSV
-    """
-    # Create data directory
-    os.makedirs('data', exist_ok=True)
+    """Save the dataset to CSV"""
+    os.makedirs('../data', exist_ok=True)
 
-    filepath = os.path.join('data', filename)
+    filepath = os.path.join('../data', filename)
     df.to_csv(filepath, index=False)
 
-    print(f"💾 Dataset saved to {filepath}")
-
-    # Print dataset statistics
-    print("\n📊 Dataset Statistics:")
+    print(f"Dataset saved to {filepath}")
+    print("\nDataset Statistics:")
     print(f"Total books: {len(df)}")
     print(f"Unique authors: {df['author'].nunique()}")
     print(f"Genres: {df['genre'].unique()}")
@@ -326,10 +299,8 @@ def save_dataset(df, filename='books.csv'):
     return filepath
 
 def create_data_report(df):
-    """
-    Create a data collection report
-    """
-    print("\n📋 Creating Data Collection Report...")
+    """Create a data collection report"""
+    print("\nCreating Data Collection Report...")
 
     report = {
         'collection_date': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -348,47 +319,37 @@ def create_data_report(df):
         }
     }
 
-    # Save report
-    with open('data/collection_report.json', 'w') as f:
+    with open('../data/collection_report.json', 'w') as f:
         json.dump(report, f, indent=2)
 
-    print("✅ Data collection report saved to data/collection_report.json")
+    print("Data collection report saved to ../data/collection_report.json")
 
     return report
 
 def main():
-    """
-    Main data collection pipeline
-    """
+    """Main data collection pipeline"""
     try:
-        # Collect books from all sources
         books = collect_all_books()
 
         if not books:
-            print("❌ No books collected. Using fallback sample data.")
+            print("No books collected. Using fallback sample data.")
             books = create_sample_dataset()
 
-        # Process the data
         df = clean_and_process_data(books)
-
-        # Save the dataset
         filepath = save_dataset(df)
-
-        # Create report
         report = create_data_report(df)
 
-        print(f"\n🎉 Data collection completed successfully!")
-        print(f"📁 Dataset: {filepath}")
-        print(f"📊 Books collected: {len(df)}")
-        print(f"🎯 Ready for ML training!")
+        print(f"\nData collection completed successfully!")
+        print(f"Dataset: {filepath}")
+        print(f"Books collected: {len(df)}")
+        print(f"Ready for ML training!")
 
         return df
 
     except Exception as e:
-        print(f"❌ Error during data collection: {e}")
+        print(f"Error during data collection: {e}")
         print("Using fallback sample dataset...")
 
-        # Fallback to sample data
         books = create_sample_dataset()
         df = clean_and_process_data(books)
         filepath = save_dataset(df)

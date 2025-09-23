@@ -19,9 +19,9 @@ import seaborn as sns
 def load_or_create_data():
     """Load existing data or create sample dataset"""
 
-    if os.path.exists('data/books.csv'):
+    if os.path.exists('../data/books.csv'):
         print("Loading existing dataset...")
-        return pd.read_csv('data/books.csv')
+        return pd.read_csv('../data/books.csv')
 
     print("Creating sample dataset...")
 
@@ -122,8 +122,8 @@ def load_or_create_data():
     df = pd.DataFrame(sample_books)
 
     # Create data directory and save
-    os.makedirs('data', exist_ok=True)
-    df.to_csv('data/books.csv', index=False)
+    os.makedirs('../data', exist_ok=True)
+    df.to_csv('../data/books.csv', index=False)
 
     return df
 
@@ -298,7 +298,7 @@ def visualize_results(df, cosine_sim, evaluation_results):
                         f'{height:.3f}', ha='center', va='bottom')
 
     plt.tight_layout()
-    plt.savefig('models/model_analysis.png', dpi=300, bbox_inches='tight')
+    plt.savefig('../models/model_analysis.png', dpi=300, bbox_inches='tight')
     plt.show()
 
 def save_model_components(tfidf_matrix, tfidf_vectorizer, cosine_sim, evaluation_results):
@@ -307,35 +307,35 @@ def save_model_components(tfidf_matrix, tfidf_vectorizer, cosine_sim, evaluation
     print("Saving model components...")
 
     # Create models directory
-    os.makedirs('models', exist_ok=True)
+    os.makedirs('../models', exist_ok=True)
 
     # Save TF-IDF matrix
-    with open('models/tfidf_matrix.pkl', 'wb') as f:
+    with open('../models/tfidf_matrix.pkl', 'wb') as f:
         pickle.dump(tfidf_matrix, f)
 
     # Save TF-IDF vectorizer
-    with open('models/tfidf_vectorizer.pkl', 'wb') as f:
+    with open('../models/tfidf_vectorizer.pkl', 'wb') as f:
         pickle.dump(tfidf_vectorizer, f)
 
     # Save similarity matrix
-    with open('models/cosine_similarity.pkl', 'wb') as f:
+    with open('../models/cosine_similarity.pkl', 'wb') as f:
         pickle.dump(cosine_sim, f)
 
     # Save evaluation results
-    with open('models/evaluation_results.pkl', 'wb') as f:
+    with open('../models/evaluation_results.pkl', 'wb') as f:
         pickle.dump(evaluation_results, f)
 
-    print("✅ Model components saved successfully!")
+    print("Model components saved successfully!")
 
 def main():
     """Main training pipeline"""
 
-    print("🚀 Starting Book Recommendation Model Training")
+    print("Starting Book Recommendation Model Training")
     print("=" * 50)
 
     # Load data
     df = load_or_create_data()
-    print(f"📚 Loaded {len(df)} books")
+    print(f"Loaded {len(df)} books")
 
     # Preprocess features
     df = preprocess_text_features(df)
@@ -355,22 +355,21 @@ def main():
     # Save model components
     save_model_components(tfidf_matrix, tfidf_vectorizer, cosine_sim, evaluation_results)
 
-    print("\n🎉 Training completed successfully!")
+    print("\nTraining completed successfully!")
     print("\nModel Performance Summary:")
-    print(f"📊 Genre Consistency: {evaluation_results['genre_consistency']:.1%}")
-    print(f"👤 Author Consistency: {evaluation_results['author_consistency']:.1%}")
-    print(f"📖 Total Books: {len(df)}")
-    print(f"🔧 Features: {tfidf_matrix.shape[1]}")
+    print(f"Genre Consistency: {evaluation_results['genre_consistency']:.1%}")
+    print(f"Author Consistency: {evaluation_results['author_consistency']:.1%}")
+    print(f"Total Books: {len(df)}")
+    print(f"Features: {tfidf_matrix.shape[1]}")
 
-    # Demo recommendations
-    print("\n🔮 Sample Recommendations:")
+    print("\nSample Recommendations:")
     sample_book_id = df['id'].iloc[0]
     sample_book_title = df[df['id'] == sample_book_id]['title'].iloc[0]
     print(f"For '{sample_book_title}':")
 
     recs = get_recommendations(sample_book_id, cosine_sim, df, n_recommendations=3)
     for _, rec in recs.iterrows():
-        print(f"  • {rec['title']} by {rec['author']} (similarity: {rec['similarity_score']:.3f})")
+        print(f"  - {rec['title']} by {rec['author']} (similarity: {rec['similarity_score']:.3f})")
 
 if __name__ == "__main__":
     main()
