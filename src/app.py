@@ -148,16 +148,67 @@ def get_book_recommendations(book_id, n_recommendations=5):
         print(f"Error getting recommendations: {e}")
         return []
 
+def get_comprehensive_recommendations(book_id):
+    """Get comprehensive recommendations with different categories"""
+    global books_df, tfidf_matrix
+
+    if books_df is None or tfidf_matrix is None:
+        return {
+            'recommendations': [],
+            'same_genre_books': [],
+            'same_author_books': []
+        }
+
+    try:
+        # Get the current book
+        current_book = books_df[books_df['id'] == book_id].iloc[0]
+
+        # 1. Similar content recommendations (TF-IDF + Cosine Similarity)
+        recommendations = get_book_recommendations(book_id, 6)
+
+        # 2. Same genre recommendations
+        same_genre_books = books_df[
+            (books_df['genre'] == current_book['genre']) &
+            (books_df['id'] != book_id)
+        ].head(4).to_dict('records')
+
+        # 3. Same author recommendations
+        same_author_books = books_df[
+            (books_df['author'] == current_book['author']) &
+            (books_df['id'] != book_id)
+        ].head(3).to_dict('records')
+
+        return {
+            'recommendations': recommendations,
+            'same_genre_books': same_genre_books,
+            'same_author_books': same_author_books,
+            'current_genre': current_book['genre'],
+            'current_author': current_book['author']
+        }
+
+    except Exception as e:
+        print(f"Error getting comprehensive recommendations: {e}")
+        return {
+            'recommendations': [],
+            'same_genre_books': [],
+            'same_author_books': []
+        }
+
 @app.route('/')
 def index():
     """Home page showing all books"""
     global books_df
-    books = books_df.to_dict('records') if books_df is not None else []
-    return render_template('index.html', books=books)
+    if books_df is None:
+        books = []
+        genres = []
+    else:
+        books = books_df.to_dict('records')
+        genres = sorted(books_df['genre'].unique().tolist())
+    return render_template('index.html', books=books, genres=genres)
 
-@app.route('/book/<int:book_id>')
+@app.route('/book/<book_id>')
 def book_detail(book_id):
-    """Book detail page with recommendations"""
+    """Book detail page with comprehensive recommendations"""
     global books_df
 
     if books_df is None:
@@ -170,12 +221,12 @@ def book_detail(book_id):
 
     book_data = book.iloc[0].to_dict()
 
-    # Get recommendations
-    recommendations = get_book_recommendations(book_id)
+    # Get comprehensive recommendations
+    recommendations = get_comprehensive_recommendations(book_id)
 
-    return render_template('book_detail.html', book=book_data, recommendations=recommendations)
+    return render_template('book_detail.html', book=book_data, **recommendations)
 
-@app.route('/api/recommendations/<int:book_id>')
+@app.route('/api/recommendations/<book_id>')
 def api_recommendations(book_id):
     """API endpoint for getting recommendations"""
     recommendations = get_book_recommendations(book_id)

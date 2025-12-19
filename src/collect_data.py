@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 import json
 import random
 
-def get_openlibrary_books(subject, limit=20):
+def get_openlibrary_books(subject, limit=500):
     """Collect books from Open Library API"""
     print(f"Fetching books for subject: {subject}")
 
@@ -243,14 +243,21 @@ def collect_all_books():
     all_books = []
 
     # Collect from Open Library (free API)
-    subjects = ['science_fiction', 'fantasy', 'mystery', 'romance', 'history']
+    subjects = ['science_fiction', 'fantasy', 'mystery', 'romance', 'history',
+               'thriller', 'biography', 'horror', 'philosophy', 'poetry',
+               'adventure', 'drama', 'comedy', 'crime', 'war', 'western',
+               'psychology', 'sociology', 'politics', 'economics', 'science',
+               'mathematics', 'medicine', 'law', 'religion', 'mythology',
+               'folklore', 'travel', 'cooking', 'art', 'music', 'sports',
+               'nature', 'animals', 'children', 'young_adult', 'education',
+               'business', 'self_help', 'health', 'fitness', 'parenting']
     for subject in subjects:
-        books = get_openlibrary_books(subject, limit=5)
+        books = get_openlibrary_books(subject, limit=200)
         all_books.extend(books)
-        time.sleep(1)
+        time.sleep(0.5)  # Faster collection for background processing
 
     # Add Project Gutenberg books
-    gutenberg_books = get_gutenberg_books(limit=5)
+    gutenberg_books = get_gutenberg_books(limit=100)
     all_books.extend(gutenberg_books)
 
     # Add sample dataset

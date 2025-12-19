@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ book.title }} - AI Book Recommender{% endblock %}
+{% block title %}{{ book.title }} - ML Book Recommender{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -29,7 +29,7 @@
                     </span>
                     <span class="meta-item">
                         <i class="fas fa-calendar"></i>
-                        {{ book.year }}
+                        {{ book.year | int }}
                     </span>
                 </div>
             </div>
@@ -47,51 +47,120 @@
     <div class="recommendations-section">
         <div class="recommendations-header">
             <h2>
-                <i class="fas fa-magic"></i>
-                AI-Powered Similar Books
+                <i class="fas fa-chart-line"></i>
+                ML-Powered Recommendations
             </h2>
-            <div class="ai-badge">
-                <i class="fas fa-robot"></i>
-                Generated using Machine Learning
+            <div class="ml-badge">
+                <i class="fas fa-cogs"></i>
+                Generated using TF-IDF & Cosine Similarity
             </div>
         </div>
 
         {% if recommendations %}
-        <div class="recommendations-grid">
-            {% for rec in recommendations %}
-            <div class="recommendation-card" onclick="viewBook({{ rec.id }})">
-                <div class="similarity-score">
-                    <span class="score-value">{{ (rec.similarity_score * 100) | round }}%</span>
-                    <span class="score-label">Match</span>
-                </div>
-                <div class="rec-content">
-                    <h3 class="rec-title">{{ rec.title }}</h3>
-                    <p class="rec-author">by {{ rec.author }}</p>
-                    <div class="rec-meta">
-                        <span class="rec-genre">
-                            <i class="fas fa-tag"></i>
-                            {{ rec.genre }}
-                        </span>
-                        <span class="rec-rating">
-                            <i class="fas fa-star"></i>
-                            {{ rec.rating }}
-                        </span>
+        <!-- ML-Based Content Recommendations -->
+        <div class="recommendation-category">
+            <h3 class="category-title">
+                <i class="fas fa-chart-line"></i>
+                Content-Based Recommendations
+                <span class="category-badge">TF-IDF + Cosine Similarity</span>
+            </h3>
+            <div class="recommendations-grid">
+                {% for rec in recommendations %}
+                <div class="recommendation-card" onclick="viewBook('{{ rec.id }}')">
+                    <div class="similarity-score">
+                        <span class="score-value">{{ (rec.similarity_score * 100) | round }}%</span>
+                        <span class="score-label">Match</span>
                     </div>
-                    <p class="rec-description">{{ rec.description[:80] }}...</p>
-                    <div class="similarity-explanation">
-                        <i class="fas fa-info-circle"></i>
-                        Similar content and themes detected by AI
+                    <div class="rec-content">
+                        <h4 class="rec-title">{{ rec.title }}</h4>
+                        <p class="rec-author">by {{ rec.author }}</p>
+                        <div class="rec-meta">
+                            <span class="rec-genre">
+                                <i class="fas fa-tag"></i>
+                                {{ rec.genre }}
+                            </span>
+                            <span class="rec-rating">
+                                <i class="fas fa-star"></i>
+                                {{ rec.rating }}
+                            </span>
+                        </div>
+                        <p class="rec-description">{{ rec.description[:80] }}...</p>
+                    </div>
+                    <div class="rec-action">
+                        <button class="btn-secondary">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </button>
                     </div>
                 </div>
-                <div class="rec-action">
-                    <button class="btn-secondary">
-                        <i class="fas fa-eye"></i>
-                        View Details
-                    </button>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
+
+        <!-- Same Genre Recommendations -->
+        {% if same_genre_books %}
+        <div class="recommendation-category">
+            <h3 class="category-title">
+                <i class="fas fa-tags"></i>
+                More {{ current_genre }} Books
+                <span class="category-badge">Genre-Based</span>
+            </h3>
+            <div class="recommendations-grid compact">
+                {% for book in same_genre_books %}
+                <div class="recommendation-card compact" onclick="viewBook('{{ book.id }}')">
+                    <div class="rec-content">
+                        <h4 class="rec-title">{{ book.title }}</h4>
+                        <p class="rec-author">by {{ book.author }}</p>
+                        <div class="rec-meta">
+                            <span class="rec-rating">
+                                <i class="fas fa-star"></i>
+                                {{ book.rating }}
+                            </span>
+                            <span class="rec-year">
+                                <i class="fas fa-calendar"></i>
+                                {{ book.year | int }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Same Author Recommendations -->
+        {% if same_author_books %}
+        <div class="recommendation-category">
+            <h3 class="category-title">
+                <i class="fas fa-user-edit"></i>
+                More by {{ current_author }}
+                <span class="category-badge">Author-Based</span>
+            </h3>
+            <div class="recommendations-grid compact">
+                {% for book in same_author_books %}
+                <div class="recommendation-card compact" onclick="viewBook('{{ book.id }}')">
+                    <div class="rec-content">
+                        <h4 class="rec-title">{{ book.title }}</h4>
+                        <div class="rec-meta">
+                            <span class="rec-genre">
+                                <i class="fas fa-tag"></i>
+                                {{ book.genre }}
+                            </span>
+                            <span class="rec-rating">
+                                <i class="fas fa-star"></i>
+                                {{ book.rating }}
+                            </span>
+                            <span class="rec-year">
+                                <i class="fas fa-calendar"></i>
+                                {{ book.year | int }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
 
         <div class="ml-explanation">
             <div class="explanation-content">
@@ -103,22 +172,22 @@
                     <div class="explanation-item">
                         <i class="fas fa-text-width"></i>
                         <div>
-                            <strong>Text Analysis</strong>
-                            <p>Analyzed title, author, genre, and description using natural language processing</p>
+                            <strong>TF-IDF Vectorization</strong>
+                            <p>Converted book text into numerical vectors using Term Frequency-Inverse Document Frequency</p>
                         </div>
                     </div>
                     <div class="explanation-item">
                         <i class="fas fa-vector-square"></i>
                         <div>
-                            <strong>Vector Similarity</strong>
-                            <p>Converted books into numerical vectors and calculated cosine similarity</p>
+                            <strong>Cosine Similarity</strong>
+                            <p>Calculated mathematical similarity between book vectors in high-dimensional space</p>
                         </div>
                     </div>
                     <div class="explanation-item">
                         <i class="fas fa-sort-numeric-down"></i>
                         <div>
-                            <strong>Ranking Algorithm</strong>
-                            <p>Ranked books by similarity score using machine learning algorithms</p>
+                            <strong>Content-Based Filtering</strong>
+                            <p>Ranked books by similarity score based on genre, theme, and textual content matching</p>
                         </div>
                     </div>
                 </div>
@@ -127,9 +196,9 @@
 
         {% else %}
         <div class="no-recommendations">
-            <i class="fas fa-robot"></i>
+            <i class="fas fa-cogs"></i>
             <h3>No recommendations available</h3>
-            <p>Our AI is still learning about this book. Check back soon for personalized recommendations!</p>
+            <p>Our ML model couldn't find similar books. This may happen with unique or rare books.</p>
         </div>
         {% endif %}
     </div>
