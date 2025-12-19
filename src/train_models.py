@@ -252,6 +252,9 @@ def visualize_results(df, cosine_sim, evaluation_results):
 
     print("Creating visualizations...")
 
+    # Create models directory for saving visualizations
+    os.makedirs('../models', exist_ok=True)
+
     # Create plots
     fig, axes = plt.subplots(2, 2, figsize=(15, 12))
 

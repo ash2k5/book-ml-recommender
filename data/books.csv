@@ -1,0 +1,11 @@
+id,title,author,genre,description,rating,year
+1,To Kill a Mockingbird,Harper Lee,Fiction,A classic novel about racial injustice and childhood innocence in the American South during the 1930s,4.5,1960
+2,1984,George Orwell,Science Fiction,"A dystopian novel about totalitarian government surveillance, thought control, and the loss of individual freedom",4.6,1949
+3,Pride and Prejudice,Jane Austen,Romance,"A romantic novel about love, marriage, social class, and personal growth in 19th century England",4.3,1813
+4,The Great Gatsby,F. Scott Fitzgerald,Fiction,"A story of love, wealth, moral decay, and the American Dream during the Jazz Age",4.1,1925
+5,Dune,Frank Herbert,Science Fiction,"An epic science fiction novel about politics, religion, ecology, and human potential on a desert planet",4.4,1965
+6,Animal Farm,George Orwell,Fiction,"An allegorical novella about farm animals who rebel against their human owner, hoping to create equality",4.2,1945
+7,Foundation,Isaac Asimov,Science Fiction,A science fiction novel about the fall of a galactic empire and the science of psychohistory,4.3,1951
+8,Emma,Jane Austen,Romance,A novel about a young woman whose misguided attempts at matchmaking cause complications,4.0,1815
+9,The Catcher in the Rye,J.D. Salinger,Fiction,"A coming-of-age story about teenage rebellion, alienation, and the search for authenticity",3.8,1951
+10,Neuromancer,William Gibson,Science Fiction,"A cyberpunk novel about hackers, artificial intelligence, and virtual reality in a dystopian future",4.1,1984

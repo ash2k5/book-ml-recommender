@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}AI Book Recommender - Home{% endblock %}
+{% block title %}Machine Learning Book Recommender - Home{% endblock %}
 
 {% block content %}
 <div class="hero-section">
     <div class="hero-content">
         <h1 class="hero-title">
-            <i class="fas fa-robot"></i>
-            AI-Powered Book Recommendations
+            <i class="fas fa-cogs"></i>
+            ML-Powered Book Recommendations
         </h1>
         <p class="hero-subtitle">
-            Discover your next favorite book using machine learning algorithms
+            Discover your next favorite book using TF-IDF vectorization and cosine similarity
         </p>
         <div class="hero-features">
             <div class="feature">
@@ -36,12 +36,21 @@
                 <i class="fas fa-book"></i>
                 Book Collection
             </h2>
-            <p>Click on any book to see AI-powered similar recommendations</p>
+            <div class="filter-section">
+                <label for="genreFilter">Filter by Genre:</label>
+                <select id="genreFilter" onchange="filterBooks()">
+                    <option value="All">All Genres</option>
+                    {% for genre in genres %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <p>Click on any book to view details and machine learning-based recommendations</p>
         </div>
 
         <div class="books-grid">
             {% for book in books %}
-            <div class="book-card" onclick="viewBook({{ book.id }})">
+            <div class="book-card" onclick="viewBook('{{ book.id }}')">
                 <div class="book-info">
                     <h3 class="book-title">{{ book.title }}</h3>
                     <p class="book-author">by {{ book.author }}</p>
@@ -56,15 +65,15 @@
                         </span>
                         <span class="book-year">
                             <i class="fas fa-calendar"></i>
-                            {{ book.year }}
+                            {{ book.year | int }}
                         </span>
                     </div>
                     <p class="book-description">{{ book.description[:100] }}...</p>
                 </div>
                 <div class="book-actions">
                     <button class="btn-primary">
-                        <i class="fas fa-magic"></i>
-                        Get AI Recommendations
+                        <i class="fas fa-chart-line"></i>
+                        View ML Recommendations
                     </button>
                 </div>
             </div>
@@ -75,8 +84,8 @@
     <section class="ml-info">
         <div class="ml-info-content">
             <h2>
-                <i class="fas fa-brain"></i>
-                How Our AI Works
+                <i class="fas fa-cogs"></i>
+                How Our Machine Learning Works
             </h2>
             <div class="ml-steps">
                 <div class="ml-step">
