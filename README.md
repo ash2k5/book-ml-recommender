@@ -7,9 +7,7 @@ A machine learning-powered book recommendation system using content-based filter
 ## Features
 
 - Content-based book recommendations
-- Web scraping for automated data collection
-- REST API endpoints
-- Interactive web interface
+- Web scraping for data collection
 - Model evaluation and visualization
 
 ## Tech Stack
@@ -18,7 +16,6 @@ A machine learning-powered book recommendation system using content-based filter
 - **ML**: scikit-learn, pandas, numpy
 - **Data Collection**: requests, BeautifulSoup
 - **Visualization**: matplotlib, seaborn
-- **Frontend**: HTML, CSS, JavaScript
 
 ## Quick Start
 
@@ -53,12 +50,6 @@ book-ml-recommender/
 └── README.md                 # Project documentation
 ```
 
-## API Endpoints
-
-- `GET /` - Home page with book catalog
-- `GET /book/<id>` - Book details with recommendations
-- `GET /api/recommendations/<id>` - JSON recommendations
-- `GET /search?q=query` - Search books by title or author
 
 ## ML Approach
 
@@ -80,6 +71,4 @@ The system evaluates recommendations using:
 This project demonstrates:
 - Web scraping and data processing
 - Machine learning model implementation
-- REST API development
 - Model evaluation techniques
-- Web application deployment
