@@ -6,7 +6,20 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 ENV/
+*.egg-info/
+build/
+dist/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Data: raw downloads and trained artifacts are regenerated, not committed
+data/raw/
+*.pkl
 
 # IDE
 .vscode/
