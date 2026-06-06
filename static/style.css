@@ -865,4 +865,113 @@ body {
     .explanation-grid {
         grid-template-columns: 1fr;
     }
+
+    .book-detail-main {
+        flex-direction: column;
+    }
+
+    .book-detail-cover {
+        width: 140px;
+    }
+}
+
+/* Book covers and card layout */
+.book-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.book-cover {
+    flex-shrink: 0;
+    width: 110px;
+}
+
+.book-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-body .book-actions {
+    margin-top: auto;
+}
+
+.cover-img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    display: block;
+    background: #edf2f7;
+}
+
+.book-detail-main {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.book-detail-cover {
+    flex-shrink: 0;
+    width: 190px;
+}
+
+.book-detail-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.book-detail-meta + .book-detail-meta {
+    margin-top: 0.75rem;
+}
+
+.meta-sub {
+    opacity: 0.7;
+    font-weight: 400;
+    font-size: 0.85em;
+    margin-left: 0.25rem;
+}
+
+.recommendation-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+.rec-cover {
+    flex-shrink: 0;
+    width: 80px;
+}
+
+.rec-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.rec-body .rec-action {
+    margin-top: auto;
+}
+
+.recommendation-card.compact {
+    display: block;
+}
+
+.rec-year {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: #4a5568;
+    background: #f7fafc;
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+}
+
+.inline-link {
+    color: white;
+    text-decoration: underline;
+    font-weight: 600;
 }

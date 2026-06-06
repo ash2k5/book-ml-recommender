@@ -1,4 +1,4 @@
-// AI Book Recommender JavaScript
+// Book recommender front-end
 
 // Global functions
 function viewBook(bookId) {
@@ -57,14 +57,16 @@ function displaySearchResults(books) {
 
     let html = '';
     books.forEach(book => {
+        const rating = book.rating ? `<span class="search-result-rating">★ ${book.rating}</span>` : '';
+        const year = book.year ? `<span class="search-result-year">${book.year}</span>` : '';
         html += `
             <div class="search-result" onclick="viewBook('${book.id}'); hideSearch();">
                 <div class="search-result-title">${book.title}</div>
                 <div class="search-result-author">by ${book.author}</div>
                 <div class="search-result-meta">
                     <span class="search-result-genre">${book.genre}</span>
-                    <span class="search-result-rating">★ ${book.rating}</span>
-                    <span class="search-result-year">${book.year}</span>
+                    ${rating}
+                    ${year}
                 </div>
             </div>
         `;
@@ -138,74 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Genre filtering function
-function filterBooks() {
-    const selectedGenre = document.getElementById('genreFilter').value;
-    const bookCards = document.querySelectorAll('.book-card');
-
-    bookCards.forEach(card => {
-        const bookGenre = card.querySelector('.book-genre').textContent.trim();
-
-        if (selectedGenre === 'All' || bookGenre === selectedGenre) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-
-    // Update results count
-    const visibleCards = document.querySelectorAll('.book-card[style="display: block"], .book-card:not([style*="none"])');
-    const totalVisible = selectedGenre === 'All' ? bookCards.length : visibleCards.length;
-
-    // Show filter result message
-    showFilterMessage(selectedGenre, totalVisible);
-}
-
-function showFilterMessage(genre, count) {
-    // Remove existing message
-    const existingMessage = document.querySelector('.filter-message');
-    if (existingMessage) {
-        existingMessage.remove();
-    }
-
-    // Create new message
-    const message = document.createElement('div');
-    message.className = 'filter-message';
-    message.innerHTML = `
-        <i class="fas fa-filter"></i>
-        Showing ${count} books${genre !== 'All' ? ` in ${genre}` : ''}
-    `;
-
-    // Insert after filter section
-    const filterSection = document.querySelector('.filter-section');
-    filterSection.insertAdjacentElement('afterend', message);
-
-    // Auto-hide after 3 seconds
-    setTimeout(() => {
-        if (message.parentNode) {
-            message.remove();
-        }
-    }, 3000);
-}
-
-// Console message for developers
-console.log(`
-🔬 ML Book Recommender System
-================================
-Built with:
-- Python & Flask
-- scikit-learn (TF-IDF, Cosine Similarity)
-- Machine Learning Algorithms
-- Content-based Filtering
-
-This project demonstrates practical ML implementation
-for recommendation systems using 6,861+ books.
-`);
-
-// Performance monitoring (for educational purposes)
-if (window.performance) {
-    window.addEventListener('load', function() {
-        const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
-        console.log(`Page load time: ${loadTime}ms`);
-    });
+// Genre browsing (server-side filter)
+function browseGenre(genre) {
+    window.location.href = genre ? `/?genre=${encodeURIComponent(genre)}` : '/';
 }
