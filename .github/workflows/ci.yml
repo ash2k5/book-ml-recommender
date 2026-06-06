@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Sync dependencies
+        run: uv sync --extra dev
+      - name: Lint
+        run: uv run ruff check .
+      - name: Format check
+        run: uv run ruff format --check .
+      - name: Test
+        run: uv run pytest -q
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t bookrec:ci .
+      - name: Smoke test container
+        run: |
+          docker run -d -p 8000:8000 --name bookrec bookrec:ci
+          ok=
+          for _ in $(seq 1 15); do
+            if curl -fsS http://localhost:8000/healthz; then ok=1; break; fi
+            sleep 2
+          done
+          docker logs bookrec
+          [ -n "$ok" ]
