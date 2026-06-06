@@ -1,0 +1,17 @@
+.venv/
+.git/
+.github/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+tests/
+notebooks/
+models/
+scripts/
+data/raw/
+*.md
+.gitignore
+.dockerignore
+Dockerfile
+.python-version

@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: book-ml-recommender
+    runtime: docker
+    plan: free
+    healthCheckPath: /healthz
+    autoDeploy: true
