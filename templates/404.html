@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Book not found - ML Book Recommender{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="no-recommendations">
+        <i class="fas fa-book"></i>
+        <h3>Book not found</h3>
+        <p>No book matches id "{{ book_id }}".</p>
+        <div class="back-to-home">
+            <a href="/" class="btn-primary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Book Collection
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

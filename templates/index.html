@@ -34,47 +34,66 @@
         <div class="section-header">
             <h2>
                 <i class="fas fa-book"></i>
-                Book Collection
+                {% if selected_genre %}{{ selected_genre }} Books{% else %}Featured Books{% endif %}
             </h2>
             <div class="filter-section">
-                <label for="genreFilter">Filter by Genre:</label>
-                <select id="genreFilter" onchange="filterBooks()">
-                    <option value="All">All Genres</option>
+                <label for="genreFilter">Browse by Genre:</label>
+                <select id="genreFilter" onchange="browseGenre(this.value)">
+                    <option value="">All Genres</option>
                     {% for genre in genres %}
-                    <option value="{{ genre }}">{{ genre }}</option>
+                    <option value="{{ genre }}" {% if genre == selected_genre %}selected{% endif %}>{{ genre }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <p>Click on any book to view details and machine learning-based recommendations</p>
+            <p>
+                {% if selected_genre %}
+                Showing {{ books|length }} books in {{ selected_genre }}.
+                <a href="/" class="inline-link">Back to featured</a>
+                {% else %}
+                Showing {{ books|length }} featured titles of {{ "{:,}".format(total) }}. Pick a genre or search to explore more.
+                {% endif %}
+            </p>
         </div>
 
         <div class="books-grid">
             {% for book in books %}
             <div class="book-card" onclick="viewBook('{{ book.id }}')">
-                <div class="book-info">
-                    <h3 class="book-title">{{ book.title }}</h3>
-                    <p class="book-author">by {{ book.author }}</p>
-                    <div class="book-meta">
-                        <span class="book-genre">
-                            <i class="fas fa-tag"></i>
-                            {{ book.genre }}
-                        </span>
-                        <span class="book-rating">
-                            <i class="fas fa-star"></i>
-                            {{ book.rating }}
-                        </span>
-                        <span class="book-year">
-                            <i class="fas fa-calendar"></i>
-                            {{ book.year | int }}
-                        </span>
-                    </div>
-                    <p class="book-description">{{ book.description[:100] }}...</p>
+                {% if book.cover_url %}
+                <div class="book-cover">
+                    <img class="cover-img" src="{{ book.cover_url }}" alt="Cover of {{ book.title }}"
+                         loading="lazy" onerror="this.closest('.book-cover').remove()">
                 </div>
-                <div class="book-actions">
-                    <button class="btn-primary">
-                        <i class="fas fa-chart-line"></i>
-                        View ML Recommendations
-                    </button>
+                {% endif %}
+                <div class="book-body">
+                    <div class="book-info">
+                        <h3 class="book-title">{{ book.title }}</h3>
+                        <p class="book-author">by {{ book.author }}</p>
+                        <div class="book-meta">
+                            <span class="book-genre">
+                                <i class="fas fa-tag"></i>
+                                {{ book.genre }}
+                            </span>
+                            {% if book.rating %}
+                            <span class="book-rating">
+                                <i class="fas fa-star"></i>
+                                {{ book.rating }}
+                            </span>
+                            {% endif %}
+                            {% if book.year %}
+                            <span class="book-year">
+                                <i class="fas fa-calendar"></i>
+                                {{ book.year }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        <p class="book-description">{{ book.description | truncate(120) }}</p>
+                    </div>
+                    <div class="book-actions">
+                        <button class="btn-primary">
+                            <i class="fas fa-chart-line"></i>
+                            View Recommendations
+                        </button>
+                    </div>
                 </div>
             </div>
             {% endfor %}
