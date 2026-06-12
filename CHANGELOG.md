@@ -1,10 +1,4 @@
-# Changelog
-
-All notable changes to this project are documented here. The format follows
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
-[Semantic Versioning](https://semver.org/spec/v2.0.0/).
-
-## [Unreleased]
+## 2026-06-12
 
 ### Security
 - Search results are rebuilt with DOM APIs and book cards navigate through a
@@ -24,9 +18,7 @@ All notable changes to this project are documented here. The format follows
 - Stale `notebooks/` analysis from the original pickle workflow; evaluation now
   lives in `scripts/evaluate.py`.
 
-## [1.0.0] - 2026-06-06
-
-Rewrite from the original flat scripts into the `bookrec` package.
+## 2026-06-06
 
 ### Added
 - `bookrec` package: a validated CSV loader, an in-memory TF-IDF recommender, and
