@@ -57,7 +57,7 @@
 
         <div class="books-grid">
             {% for book in books %}
-            <div class="book-card" onclick="viewBook('{{ book.id }}')">
+            <div class="book-card" data-book-id="{{ book.id }}">
                 {% if book.cover_url %}
                 <div class="book-cover">
                     <img class="cover-img" src="{{ book.cover_url }}" alt="Cover of {{ book.title }}"
