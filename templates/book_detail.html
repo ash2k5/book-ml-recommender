@@ -92,7 +92,7 @@
             </h3>
             <div class="recommendations-grid">
                 {% for rec in recommendations %}
-                <div class="recommendation-card" onclick="viewBook('{{ rec.id }}')">
+                <div class="recommendation-card" data-book-id="{{ rec.id }}">
                     <div class="similarity-score">
                         <span class="score-value">{{ (rec.similarity_score * 100) | round }}%</span>
                         <span class="score-label">Match</span>
@@ -142,7 +142,7 @@
             </h3>
             <div class="recommendations-grid compact">
                 {% for book in same_genre_books %}
-                <div class="recommendation-card compact" onclick="viewBook('{{ book.id }}')">
+                <div class="recommendation-card compact" data-book-id="{{ book.id }}">
                     <div class="rec-content">
                         <h4 class="rec-title">{{ book.title }}</h4>
                         <p class="rec-author">by {{ book.author }}</p>
@@ -176,7 +176,7 @@
             </h3>
             <div class="recommendations-grid compact">
                 {% for book in same_author_books %}
-                <div class="recommendation-card compact" onclick="viewBook('{{ book.id }}')">
+                <div class="recommendation-card compact" data-book-id="{{ book.id }}">
                     <div class="rec-content">
                         <h4 class="rec-title">{{ book.title }}</h4>
                         <div class="rec-meta">

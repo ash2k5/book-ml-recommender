@@ -1,9 +1,12 @@
 // Book recommender front-end
 
-// Global functions
-function viewBook(bookId) {
-    window.location.href = `/book/${bookId}`;
-}
+// Delegated navigation for [data-book-id] elements
+document.addEventListener('click', function (event) {
+    const card = event.target.closest('[data-book-id]');
+    if (card) {
+        window.location.href = `/book/${card.dataset.bookId}`;
+    }
+});
 
 function showSearch() {
     document.getElementById('searchModal').style.display = 'block';
@@ -49,30 +52,53 @@ function searchBooks() {
 
 function displaySearchResults(books) {
     const resultsContainer = document.getElementById('searchResults');
+    resultsContainer.replaceChildren();
 
     if (books.length === 0) {
-        resultsContainer.innerHTML = '<div class="search-empty">No books found. Try a different search term.</div>';
+        const empty = document.createElement('div');
+        empty.className = 'search-empty';
+        empty.textContent = 'No books found. Try a different search term.';
+        resultsContainer.appendChild(empty);
         return;
     }
 
-    let html = '';
     books.forEach(book => {
-        const rating = book.rating ? `<span class="search-result-rating">★ ${book.rating}</span>` : '';
-        const year = book.year ? `<span class="search-result-year">${book.year}</span>` : '';
-        html += `
-            <div class="search-result" onclick="viewBook('${book.id}'); hideSearch();">
-                <div class="search-result-title">${book.title}</div>
-                <div class="search-result-author">by ${book.author}</div>
-                <div class="search-result-meta">
-                    <span class="search-result-genre">${book.genre}</span>
-                    ${rating}
-                    ${year}
-                </div>
-            </div>
-        `;
-    });
+        const result = document.createElement('div');
+        result.className = 'search-result';
+        result.dataset.bookId = book.id;
 
-    resultsContainer.innerHTML = html;
+        const title = document.createElement('div');
+        title.className = 'search-result-title';
+        title.textContent = book.title;
+
+        const author = document.createElement('div');
+        author.className = 'search-result-author';
+        author.textContent = `by ${book.author}`;
+
+        const meta = document.createElement('div');
+        meta.className = 'search-result-meta';
+
+        const genre = document.createElement('span');
+        genre.className = 'search-result-genre';
+        genre.textContent = book.genre;
+        meta.appendChild(genre);
+
+        if (book.rating) {
+            const rating = document.createElement('span');
+            rating.className = 'search-result-rating';
+            rating.textContent = `★ ${book.rating}`;
+            meta.appendChild(rating);
+        }
+        if (book.year) {
+            const year = document.createElement('span');
+            year.className = 'search-result-year';
+            year.textContent = book.year;
+            meta.appendChild(year);
+        }
+
+        result.append(title, author, meta);
+        resultsContainer.appendChild(result);
+    });
 }
 
 // Close modal when clicking outside
