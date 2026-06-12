@@ -13,9 +13,6 @@ app serves a browsable catalog, per-book recommendations, and a JSON search API.
    computed in memory. The detail page also shows other books in the same genre
    and by the same author.
 
-The model is built in memory at startup (~1,500 books, well under a second), so
-there are no pickled artifacts to keep in sync with the data.
-
 ## Dataset
 
 `data/books.csv` is a ~1,500-book subset of the Best Books Ever dataset, chosen for
@@ -47,11 +44,6 @@ to `models/model_analysis.png`:
 
     uv run --extra viz python scripts/evaluate.py
 
-## Deployment
-
-`render.yaml` defines a free-tier Render web service built from the `Dockerfile`.
-The app reads `$PORT` and exposes `/healthz` for health checks. The committed
-catalog ships in the image, so no runtime data source or secret is required.
 
 ## Project structure
 
