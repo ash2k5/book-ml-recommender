@@ -48,7 +48,7 @@ def load_books(path: str | Path) -> pd.DataFrame:
     if missing:
         raise ValueError(f"catalog missing required columns: {', '.join(missing)}")
 
-    df = df[list(REQUIRED_COLUMNS)].copy()
+    df = df[list(REQUIRED_COLUMNS)]
 
     for column in _TEXT_COLUMNS:
         df[column] = df[column].fillna("").astype(str).str.strip()
