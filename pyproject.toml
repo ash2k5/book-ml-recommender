@@ -1,23 +1,23 @@
 [project]
 name = "bookrec"
-version = "1.0.0"
-description = "Content-based book recommender using TF-IDF and cosine similarity"
+version = "2.0.0"
+description = "Content-based book recommender API using TF-IDF and cosine similarity"
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
 authors = [{ name = "Ashwin Santosh" }]
 dependencies = [
-    "flask>=3.1,<4",
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.30,<1",
     "pandas>=3,<4",
     "numpy>=2.1,<3",
     "scikit-learn>=1.9,<2",
-    "gunicorn>=23.0; platform_system != 'Windows'",
 ]
 
 [project.optional-dependencies]
 collect = ["requests>=2.32"]
 viz = ["matplotlib>=3.9"]
-dev = ["pytest>=8.3", "ruff>=0.8", "pip-audit>=2.7"]
+dev = ["pytest>=8.3", "ruff>=0.8", "pip-audit>=2.7", "httpx>=0.27"]
 
 [build-system]
 requires = ["hatchling"]
