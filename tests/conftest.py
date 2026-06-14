@@ -2,8 +2,9 @@
 
 import pandas as pd
 import pytest
+from fastapi.testclient import TestClient
 
-from bookrec.app import create_app
+from bookrec.api import create_app
 from bookrec.data import load_books
 from bookrec.recommender import BookRecommender
 
@@ -95,6 +96,5 @@ def recommender(books):
 
 @pytest.fixture
 def client(catalog_path):
-    app = create_app(catalog_path)
-    app.config.update(TESTING=True)
-    return app.test_client()
+    with TestClient(create_app(catalog_path)) as test_client:
+        yield test_client
