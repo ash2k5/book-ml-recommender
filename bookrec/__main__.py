@@ -1,6 +1,6 @@
 """Development entry point: ``python -m bookrec``."""
 
-from bookrec.app import create_app
+import uvicorn
 
 if __name__ == "__main__":
-    create_app().run(host="127.0.0.1", port=5000)
+    uvicorn.run("bookrec.api:app", host="127.0.0.1", port=8000)
