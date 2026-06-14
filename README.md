@@ -1,8 +1,9 @@
-# Book Recommender
+# Book Recommender API
 
-A content-based book recommender. It vectorizes each book's title, author, genres,
-and description with TF-IDF and ranks similar books by cosine similarity. A Flask
-app serves a browsable catalog, per-book recommendations, and a JSON search API.
+A content-based book recommender served as a JSON API. It vectorizes each book's
+title, author, genres, and description with TF-IDF and ranks similar books by
+cosine similarity. FastAPI exposes the catalog, per-book recommendations, related
+books, and search, with an OpenAPI schema for typed clients.
 
 ## How it works
 
@@ -10,8 +11,8 @@ app serves a browsable catalog, per-book recommendations, and a JSON search API.
 2. Each book's text fields are combined and vectorized with TF-IDF (unigrams and
    bigrams, English stop words).
 3. Recommendations for a book are its nearest neighbors by cosine similarity,
-   computed in memory. The detail page also shows other books in the same genre
-   and by the same author.
+   computed in memory. Related books are others in the same genre or by the same
+   author.
 
 ## Dataset
 
@@ -25,12 +26,27 @@ Regenerate the subset with:
 ## Quick start
 
     uv sync
-    uv run python -m bookrec          # dev server at http://127.0.0.1:5000
+    uv run python -m bookrec          # dev server at http://127.0.0.1:8000
 
-Run with a production server, or with Docker:
+Run the server directly, or with Docker:
 
-    uv run gunicorn wsgi:app          # Linux/macOS
+    uv run uvicorn bookrec.api:app --port 8000
     docker build -t bookrec . && docker run -p 8000:8000 bookrec
+
+Interactive docs are at `/docs`; the OpenAPI schema is at `/openapi.json`.
+
+## API
+
+    GET /books?genre=&limit=             featured books, or filtered by genre
+    GET /books/{id}                      a single book (404 if absent)
+    GET /books/{id}/recommendations?n=   TF-IDF nearest neighbours, with scores
+    GET /books/{id}/related              same-genre and same-author books
+    GET /genres                          all genres, sorted
+    GET /search?q=&limit=                literal title/author substring search
+    GET /healthz                         health check and catalog size
+
+`ALLOWED_ORIGINS` (comma-separated) restricts CORS to known frontends; it defaults
+to `*` for a public read-only API. `DATA_PATH` overrides the catalog location.
 
 ## Tests
 
@@ -44,21 +60,9 @@ to `models/model_analysis.png`:
 
     uv run --extra viz python scripts/evaluate.py
 
-
 ## Project structure
 
-    bookrec/         package: data loader, recommender, Flask app factory
-    templates/       Jinja templates
-    static/          CSS and JS
+    bookrec/         package: data loader, recommender, FastAPI app
     data/books.csv   committed book catalog
     scripts/         offline dataset build and evaluation
     tests/           pytest suite
-    wsgi.py          gunicorn entry point
-
-## Routes
-
-    GET /                          featured books, genre filter
-    GET /book/<id>                 book detail and recommendations
-    GET /search?q=<query>          JSON title/author search
-    GET /api/recommendations/<id>  JSON recommendations
-    GET /healthz                   health check

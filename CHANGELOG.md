@@ -1,3 +1,24 @@
+## 2026-06-14
+
+### Changed
+- Replaced the Flask + Jinja web layer with a FastAPI JSON API (`bookrec/api.py`).
+  Endpoints: `/books`, `/books/{id}`, `/books/{id}/recommendations`,
+  `/books/{id}/related`, `/genres`, `/search`, `/healthz`, plus an OpenAPI schema
+  at `/openapi.json`. The TF-IDF recommender and dataset are unchanged, so
+  recommendations are identical to the previous release.
+- Query parameters are bounded (`limit`, `n`) and validated at the API boundary;
+  unknown book ids now return 404 rather than an empty list.
+- Production server is `uvicorn`; `python -m bookrec` runs the dev server on 8000.
+
+### Added
+- CORS support, allow-listed via the `ALLOWED_ORIGINS` environment variable
+  (defaults to `*` for this public read-only API).
+
+### Removed
+- Server-rendered templates and static assets (the frontend moves to a separate
+  Next.js app), along with their DOM-XSS regression tests and the `gunicorn`/WSGI
+  entry point. Dropped Flask in favour of FastAPI + Uvicorn.
+
 ## 2026-06-12
 
 ### Security
