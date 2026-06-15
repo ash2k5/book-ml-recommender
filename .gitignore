@@ -1,37 +1,14 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-.venv/
-ENV/
-*.egg-info/
-build/
-dist/
+# OS
+.DS_Store
+Thumbs.db
 
-# Tooling caches
-.pytest_cache/
-.ruff_cache/
-.ipynb_checkpoints/
-
-# Data: raw downloads and trained artifacts are regenerated, not committed
-data/raw/
-*.pkl
-
-# IDE
+# Editor
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS
-.DS_Store
-Thumbs.db
-nul
+# Local project notes
+CLAUDE.md
 
-# Environment
-.env
+# Per-package ignores live in api/.gitignore and web/.gitignore

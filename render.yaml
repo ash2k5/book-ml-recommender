@@ -2,6 +2,7 @@ services:
   - type: web
     name: book-ml-recommender
     runtime: docker
+    rootDir: api
     plan: free
     healthCheckPath: /healthz
     autoDeploy: true
