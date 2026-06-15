@@ -45,12 +45,10 @@ uv sync --extra dev
 uv run uvicorn bookrec.api:app --reload
 ```
 
-**Web** (http://localhost:3000) — install needs a classic `read:packages` token for the
-design system package (GitHub Packages requires auth even for public packages):
+**Web** (http://localhost:3000):
 
 ```bash
 cd web
-export NODE_AUTH_TOKEN=<classic PAT with read:packages>
 npm ci
 npm run dev   # set API_BASE_URL to point elsewhere; defaults to the live API
 ```

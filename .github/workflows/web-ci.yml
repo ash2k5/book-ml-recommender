@@ -11,14 +11,6 @@ on:
       - "web/**"
       - ".github/workflows/web-ci.yml"
 
-# Installing @ash2k5/cinematic-ds from GitHub Packages; .npmrc reads this token.
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-permissions:
-  contents: read
-  packages: read
-
 defaults:
   run:
     working-directory: web
