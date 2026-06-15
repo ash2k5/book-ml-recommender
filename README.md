@@ -4,7 +4,7 @@ A full-stack book recommendation app over a 1,500-title catalog. The backend ran
 books by content similarity (TF-IDF over plot, author, and genre); the frontend is an
 editorial reading experience built on a custom design system.
 
-- **Web app:** _Vercel deploy (link added on deploy)_
+- **Web app:** https://book-ml-web.vercel.app
 - **API:** https://book-ml-recommender.onrender.com — [OpenAPI schema](https://book-ml-recommender.onrender.com/openapi.json)
 
 ## What it does
