@@ -1,43 +1,18 @@
-# Book ML Recommender
+# book ml recommender
 
-A full-stack book recommendation app over a 1,500-title catalog. The backend ranks
-books by content similarity (TF-IDF over plot, author, and genre); the frontend is an
-editorial reading experience built on a custom design system.
+a book recommender over a ~1,500 title catalog. it ranks books by content, not ratings:
+each book's plot, author, and genres are combined and vectorized with tf-idf, then ranked
+by cosine similarity to the one you're viewing, so the matches reflect what a book is
+about. browse a featured shelf, filter by genre, search, and open any title for
+recommendations plus more from the same genre and author.
 
-- **Web app:** https://book-ml-web.vercel.app
-- **API:** https://book-ml-recommender.onrender.com — [OpenAPI schema](https://book-ml-recommender.onrender.com/openapi.json)
+https://book-ml-web.vercel.app
 
-## What it does
+## run locally
 
-Browse a featured shelf, filter by genre, open any title for its details, and get
-"you might also like" recommendations plus more from the same genre and author. Search
-runs over titles and authors.
+a python api (`api/`) and a next.js frontend (`web/`).
 
-Recommendations are **content-based**, not rating averages: each book's plot summary,
-author, and genres are combined into one text field, vectorized with TF-IDF, and ranked
-by cosine similarity to the book you're viewing. Matches reflect what a book is *about*.
-For example, *The Hunger Games* surfaces *Catching Fire* and *Mockingjay*.
-
-## Architecture
-
-```
-book-ml-recommender/
-├── api/   FastAPI JSON API + scikit-learn TF-IDF recommender   ->  Render (Docker)
-└── web/   Next.js App Router frontend on @ash2k5/cinematic-ds  ->  Vercel
-```
-
-The two halves deploy independently. The frontend's API client is **typed from the
-backend's OpenAPI schema** (`web/app/lib/schema.d.ts`, regenerated with `npm run gen:api`),
-so the contract between them is checked at compile time.
-
-| | Stack |
-|---|---|
-| api | Python 3.12, FastAPI, scikit-learn, pandas, uv; pytest + ruff; Docker on Render |
-| web | Next.js 16 (App Router, server components), React 19, TypeScript, Tailwind v4, the [`@ash2k5/cinematic-ds`](https://github.com/ash2k5/design-system) design system; Vitest; Vercel |
-
-## Run locally
-
-**API** (http://localhost:8000, `/docs` for Swagger):
+api, on http://localhost:8000:
 
 ```bash
 cd api
@@ -45,22 +20,22 @@ uv sync --extra dev
 uv run uvicorn bookrec.api:app --reload
 ```
 
-**Web** (http://localhost:3000):
+web, on http://localhost:3000 (set `API_BASE_URL` to your local api):
 
 ```bash
 cd web
 npm ci
-npm run dev   # set API_BASE_URL to point elsewhere; defaults to the live API
+npm run dev
 ```
 
-## Tests
+## tests
 
 ```bash
-cd api && uv run pytest        # data, recommender, and API endpoint tests
-cd web && npm test             # API client + component tests
+cd api && uv run pytest
+cd web && npm test
 ```
 
-## Data
+## data
 
-Catalog is a ~1,500-book subset of the **Best Books Ever** dataset (CC BY-NC 4.0); see
-`api/data/README.md` for attribution. Application code is MIT (`LICENSE`).
+the catalog is a ~1,500-book subset of the best books ever dataset (cc by-nc 4.0); see
+`api/data/README.md` for attribution. code is MIT (`LICENSE`).

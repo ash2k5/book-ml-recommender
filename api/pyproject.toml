@@ -1,7 +1,7 @@
 [project]
 name = "bookrec"
 version = "2.0.0"
-description = "Content-based book recommender API using TF-IDF and cosine similarity"
+description = "book recommender api: tf-idf + cosine similarity over plot, author, and genre"
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
