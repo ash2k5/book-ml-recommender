@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import BookGrid from "../app/components/BookGrid";
-import type { Book } from "../app/lib/api";
+import BookGrid from "../src/components/BookGrid";
+import type { Book } from "../src/lib/api";
 
 function makeBook(id: string, title: string): Book {
   return {

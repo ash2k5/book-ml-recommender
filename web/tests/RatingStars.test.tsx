@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import RatingStars from "../app/components/RatingStars";
+import RatingStars from "../src/components/RatingStars";
 
 describe("RatingStars", () => {
   test("exposes the numeric rating via an accessible name", () => {

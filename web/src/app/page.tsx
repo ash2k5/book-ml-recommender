@@ -1,6 +1,6 @@
-import { getByGenre, getFeatured, getGenres } from "./lib/api";
-import BookGrid from "./components/BookGrid";
-import GenreFilter from "./components/GenreFilter";
+import { getByGenre, getFeatured, getGenres } from "../lib/api";
+import BookGrid from "../components/BookGrid";
+import GenreFilter from "../components/GenreFilter";
 
 export default async function HomePage({
   searchParams,

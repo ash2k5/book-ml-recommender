@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@ash2k5/cinematic-ds";
+} from "@ash2k5/ui";
 
 interface GenreFilterProps {
   genres: string[];

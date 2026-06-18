@@ -5,7 +5,7 @@ import {
   getByGenre,
   getRecommendations,
   searchBooks,
-} from "../app/lib/api";
+} from "../src/lib/api";
 
 const fetchMock = vi.fn();
 

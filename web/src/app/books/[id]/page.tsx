@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { Badge } from "@ash2k5/cinematic-ds";
-import { getBook, getRecommendations, getRelated } from "../../lib/api";
-import { formatCount, formatRating, genreList } from "../../lib/format";
-import BookCover from "../../components/BookCover";
-import BookRow from "../../components/BookRow";
-import RatingStars from "../../components/RatingStars";
+import { Badge } from "@ash2k5/ui";
+import { getBook, getRecommendations, getRelated } from "../../../lib/api";
+import { formatCount, formatRating, genreList } from "../../../lib/format";
+import BookCover from "../../../components/BookCover";
+import BookRow from "../../../components/BookRow";
+import RatingStars from "../../../components/RatingStars";
 
 export async function generateMetadata({
   params,

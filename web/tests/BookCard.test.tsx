@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import BookCard from "../app/components/BookCard";
-import type { Book } from "../app/lib/api";
+import BookCard from "../src/components/BookCard";
+import type { Book } from "../src/lib/api";
 
 const book: Book = {
   id: "42",

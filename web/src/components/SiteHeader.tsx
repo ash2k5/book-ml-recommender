@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { ThemeToggle } from "@ash2k5/cinematic-ds";
+import { ThemeToggle } from "@ash2k5/ui";
 
 export default function SiteHeader() {
   return (

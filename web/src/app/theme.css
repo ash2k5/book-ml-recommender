@@ -1,0 +1,9 @@
+/* Folio amber-bronze accent over the DS base. */
+:root {
+  --primary: #9a5b1e;
+  --on-primary: #ffffff;
+}
+[data-theme="dark"] {
+  --primary: #e9b27a;
+  --on-primary: #2a1a0a;
+}

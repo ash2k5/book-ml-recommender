@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { formatCount, formatRating, genreList } from "../app/lib/format";
+import { formatCount, formatRating, genreList } from "../src/lib/format";
 
 describe("formatRating", () => {
   test("renders an em dash for missing ratings", () => {

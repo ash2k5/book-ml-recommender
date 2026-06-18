@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { searchBooks } from "../lib/api";
-import BookGrid from "../components/BookGrid";
-import EmptyState from "../components/EmptyState";
+import { searchBooks } from "../../lib/api";
+import BookGrid from "../../components/BookGrid";
+import EmptyState from "../../components/EmptyState";
 
 export const metadata: Metadata = { title: "Search" };
 

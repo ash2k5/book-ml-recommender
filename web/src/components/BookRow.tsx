@@ -1,4 +1,4 @@
-import { Badge } from "@ash2k5/cinematic-ds";
+import { Badge } from "@ash2k5/ui";
 import type { Book, ScoredBook } from "../lib/api";
 import BookCard from "./BookCard";
 
