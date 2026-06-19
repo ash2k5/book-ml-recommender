@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "gen:api": "npx -y openapi-typescript@7 https://book-ml-recommender.onrender.com/openapi.json -o src/lib/schema.d.ts"
+    "gen:api": "npx -y openapi-typescript@7 https://tome-api.onrender.com/openapi.json -o src/lib/schema.d.ts"
   },
   "dependencies": {
     "@ash2k5/ui": "^1.0.1",

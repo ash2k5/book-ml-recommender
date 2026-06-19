@@ -5,7 +5,7 @@ export type ScoredBook = components["schemas"]["ScoredBook"];
 export type Related = components["schemas"]["Related"];
 
 const API_BASE_URL = (
-  process.env.API_BASE_URL ?? "https://book-ml-recommender.onrender.com"
+  process.env.API_BASE_URL ?? "https://tome-api.onrender.com"
 ).replace(/\/+$/, "");
 
 const REVALIDATE_SECONDS = 3600;
