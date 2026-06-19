@@ -10,7 +10,7 @@ export default function SiteHeader() {
           href="/"
           className="shrink-0 font-display text-xl leading-none text-on-surface"
         >
-          Folio
+          Tome
         </Link>
         <form
           action="/search"
@@ -28,7 +28,7 @@ export default function SiteHeader() {
             type="search"
             aria-label="Search books or authors"
             placeholder="Search books or authors"
-            className="ds-input pl-6"
+            className="ds-input pl-6!"
           />
         </form>
         <ThemeToggle className="shrink-0" />

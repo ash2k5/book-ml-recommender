@@ -18,8 +18,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Folio — book recommendations",
-    template: "%s · Folio",
+    default: "Tome — book recommendations",
+    template: "%s · Tome",
   },
   description:
     "A book recommender: 1,500 titles ranked by content similarity (TF-IDF over plot, author, and genre).",
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <footer className="border-t border-outline-variant">
           <div className="ds-container flex flex-col gap-1 py-8 ds-body-sm text-on-surface-variant">
             <span>
-              Folio — content-based recommendations over a 1,500-title catalog.
+              Tome — content-based recommendations over a 1,500-title catalog.
             </span>
             <span className="ds-label-sm">
               Book data: Best Books Ever (CC BY-NC 4.0).
