@@ -6,7 +6,7 @@ cosine similarity to the one you're viewing, so the matches reflect what a book 
 Browse a featured shelf, filter by genre, search, and open any title for recommendations
 plus more from the same genre and author.
 
-https://tome-app.vercel.app
+https://tome.ask2k5.com
 
 ## Run locally
 
