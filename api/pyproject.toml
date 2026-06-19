@@ -1,5 +1,5 @@
 [project]
-name = "bookrec"
+name = "tome"
 version = "2.0.0"
 description = "book recommender api: tf-idf + cosine similarity over plot, author, and genre"
 readme = "README.md"
@@ -24,7 +24,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["bookrec"]
+packages = ["tome"]
 
 [tool.ruff]
 line-length = 100

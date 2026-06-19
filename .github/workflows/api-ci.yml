@@ -40,14 +40,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Build image
-        run: docker build -t bookrec:ci .
+        run: docker build -t tome:ci .
       - name: Smoke test container
         run: |
-          docker run -d -p 8000:8000 --name bookrec bookrec:ci
+          docker run -d -p 8000:8000 --name tome tome:ci
           ok=
           for _ in $(seq 1 15); do
             if curl -fsS http://localhost:8000/healthz; then ok=1; break; fi
             sleep 2
           done
-          docker logs bookrec
+          docker logs tome
           [ -n "$ok" ]

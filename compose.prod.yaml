@@ -1,4 +1,4 @@
-name: book-ml-prod
+name: tome-prod
 
 services:
   api:

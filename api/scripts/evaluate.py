@@ -13,8 +13,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from bookrec.data import load_books
-from bookrec.recommender import BookRecommender
+from tome.data import load_books
+from tome.recommender import BookRecommender
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = REPO_ROOT / "data" / "books.csv"

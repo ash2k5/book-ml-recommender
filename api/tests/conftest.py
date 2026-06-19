@@ -4,9 +4,9 @@ import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
 
-from bookrec.api import create_app
-from bookrec.data import load_books
-from bookrec.recommender import BookRecommender
+from tome.api import create_app
+from tome.data import load_books
+from tome.recommender import BookRecommender
 
 SAMPLE_ROWS = [
     {

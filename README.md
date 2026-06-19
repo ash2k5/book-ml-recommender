@@ -1,4 +1,4 @@
-# Book ML Recommender
+# Tome
 
 A book recommender over a ~1,500-title catalog. It ranks books by content, not ratings:
 each book's plot, author, and genres are combined and vectorized with TF-IDF, then ranked by
@@ -17,7 +17,7 @@ API, on http://localhost:8000:
 ```bash
 cd api
 uv sync --extra dev
-uv run uvicorn bookrec.api:app --reload
+uv run uvicorn tome.api:app --reload
 ```
 
 Web, on http://localhost:3000 (set `API_BASE_URL` to your local API):

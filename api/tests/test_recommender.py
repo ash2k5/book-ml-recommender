@@ -1,7 +1,7 @@
 """Tests for the content-based recommender."""
 
-from bookrec.data import load_books
-from bookrec.recommender import BookRecommender
+from tome.data import load_books
+from tome.recommender import BookRecommender
 
 
 def test_recommend_finds_most_similar(recommender):

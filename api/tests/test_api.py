@@ -3,7 +3,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from bookrec.api import create_app
+from tome.api import create_app
 
 
 def test_healthz(client):

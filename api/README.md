@@ -26,12 +26,12 @@ Regenerate the subset with:
 ## Quick start
 
     uv sync
-    uv run python -m bookrec          # dev server at http://127.0.0.1:8000
+    uv run python -m tome          # dev server at http://127.0.0.1:8000
 
 Run the server directly, or with Docker:
 
-    uv run uvicorn bookrec.api:app --port 8000
-    docker build -t bookrec . && docker run -p 8000:8000 bookrec
+    uv run uvicorn tome.api:app --port 8000
+    docker build -t tome . && docker run -p 8000:8000 tome
 
 Interactive docs are at `/docs`; the OpenAPI schema is at `/openapi.json`.
 
@@ -62,7 +62,7 @@ to `models/model_analysis.png`:
 
 ## Project structure
 
-    bookrec/         package: data loader, recommender, FastAPI app
+    tome/         package: data loader, recommender, FastAPI app
     data/books.csv   committed book catalog
     scripts/         offline dataset build and evaluation
     tests/           pytest suite

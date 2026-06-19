@@ -2,7 +2,7 @@
 
 import pytest
 
-from bookrec.data import REQUIRED_COLUMNS, load_books
+from tome.data import REQUIRED_COLUMNS, load_books
 
 
 def test_loads_all_rows(books):

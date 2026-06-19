@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: book-ml-recommender
+    name: tome-api
     runtime: docker
     rootDir: api
     plan: free

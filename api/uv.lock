@@ -42,48 +42,6 @@ wheels = [
 ]
 
 [[package]]
-name = "bookrec"
-version = "2.0.0"
-source = { editable = "." }
-dependencies = [
-    { name = "fastapi" },
-    { name = "numpy" },
-    { name = "pandas" },
-    { name = "scikit-learn" },
-    { name = "uvicorn", extra = ["standard"] },
-]
-
-[package.optional-dependencies]
-collect = [
-    { name = "requests" },
-]
-dev = [
-    { name = "httpx" },
-    { name = "pip-audit" },
-    { name = "pytest" },
-    { name = "ruff" },
-]
-viz = [
-    { name = "matplotlib" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "fastapi", specifier = ">=0.115,<1" },
-    { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.27" },
-    { name = "matplotlib", marker = "extra == 'viz'", specifier = ">=3.9" },
-    { name = "numpy", specifier = ">=2.1,<3" },
-    { name = "pandas", specifier = ">=3,<4" },
-    { name = "pip-audit", marker = "extra == 'dev'", specifier = ">=2.7" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3" },
-    { name = "requests", marker = "extra == 'collect'", specifier = ">=2.32" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8" },
-    { name = "scikit-learn", specifier = ">=1.9,<2" },
-    { name = "uvicorn", extras = ["standard"], specifier = ">=0.30,<1" },
-]
-provides-extras = ["collect", "viz", "dev"]
-
-[[package]]
 name = "boolean-py"
 version = "5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1381,6 +1339,48 @@ sdist = { url = "https://files.pythonhosted.org/packages/b7/4d/08c89e34946fce2ae
 wheels = [
     { url = "https://files.pythonhosted.org/packages/32/d5/f9a850d79b0851d1d4ef6456097579a9005b31fea68726a4ae5f2d82ddd9/threadpoolctl-3.6.0-py3-none-any.whl", hash = "sha256:43a0b8fd5a2928500110039e43a5eed8480b918967083ea48dc3ab9f13c4a7fb", size = 18638, upload-time = "2025-03-13T13:49:21.846Z" },
 ]
+
+[[package]]
+name = "tome"
+version = "2.0.0"
+source = { editable = "." }
+dependencies = [
+    { name = "fastapi" },
+    { name = "numpy" },
+    { name = "pandas" },
+    { name = "scikit-learn" },
+    { name = "uvicorn", extra = ["standard"] },
+]
+
+[package.optional-dependencies]
+collect = [
+    { name = "requests" },
+]
+dev = [
+    { name = "httpx" },
+    { name = "pip-audit" },
+    { name = "pytest" },
+    { name = "ruff" },
+]
+viz = [
+    { name = "matplotlib" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fastapi", specifier = ">=0.115,<1" },
+    { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.27" },
+    { name = "matplotlib", marker = "extra == 'viz'", specifier = ">=3.9" },
+    { name = "numpy", specifier = ">=2.1,<3" },
+    { name = "pandas", specifier = ">=3,<4" },
+    { name = "pip-audit", marker = "extra == 'dev'", specifier = ">=2.7" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3" },
+    { name = "requests", marker = "extra == 'collect'", specifier = ">=2.32" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8" },
+    { name = "scikit-learn", specifier = ">=1.9,<2" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.30,<1" },
+]
+provides-extras = ["collect", "viz", "dev"]
 
 [[package]]
 name = "tomli"

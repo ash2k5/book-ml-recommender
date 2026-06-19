@@ -1,15 +1,15 @@
-name: book-ml
+name: tome
 
 services:
   api:
     build: ./api
-    command: uvicorn bookrec.api:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn tome.api:app --host 0.0.0.0 --port 8000 --reload
     environment:
       PORT: "8000"
     ports:
       - "8000:8000"
     volumes:
-      - ./api/bookrec:/app/bookrec
+      - ./api/tome:/app/tome
       - ./api/data:/app/data
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]

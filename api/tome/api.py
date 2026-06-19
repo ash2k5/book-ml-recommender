@@ -9,9 +9,9 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from bookrec import __version__
-from bookrec.data import load_books
-from bookrec.recommender import BookRecommender
+from tome import __version__
+from tome.data import load_books
+from tome.recommender import BookRecommender
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _DEFAULT_DATA = _REPO_ROOT / "data" / "books.csv"
@@ -57,7 +57,7 @@ def create_app(data_path: str | os.PathLike | None = None) -> FastAPI:
     recommender = BookRecommender(load_books(path))
 
     app = FastAPI(
-        title="Book ML Recommender API",
+        title="Tome API",
         description="Content-based book recommendations via TF-IDF and cosine similarity.",
         version=__version__,
     )
