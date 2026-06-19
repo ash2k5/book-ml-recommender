@@ -28,6 +28,20 @@ npm ci
 npm run dev
 ```
 
+## Run with Docker
+
+Runs the whole app in containers, no local Python or Node setup needed (Docker Desktop must be running):
+
+```bash
+docker compose up --build
+```
+
+Production build:
+
+```bash
+docker compose -f compose.prod.yaml up --build
+```
+
 ## Tests
 
 ```bash
