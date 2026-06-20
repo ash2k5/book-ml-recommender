@@ -9,7 +9,7 @@ authors = [{ name = "Ashwin Santosh" }]
 dependencies = [
     "fastapi>=0.115,<1",
     "uvicorn[standard]>=0.49.0,<1",
-    "pandas>=3,<4",
+    "pandas>=3.0.3,<4",
     "numpy>=2.1,<3",
     "scikit-learn>=1.9,<2",
 ]
