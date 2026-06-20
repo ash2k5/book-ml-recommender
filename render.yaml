@@ -6,3 +6,6 @@ services:
     plan: free
     healthCheckPath: /healthz
     autoDeploy: true
+    envVars:
+      - key: ALLOWED_ORIGINS
+        sync: false
