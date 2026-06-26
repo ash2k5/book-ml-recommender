@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-collect = ["requests>=2.32"]
+collect = ["requests>=2.34.2"]
 viz = ["matplotlib>=3.9"]
 dev = ["pytest>=9.1.1", "ruff>=0.8", "pip-audit>=2.10.1", "httpx>=0.27"]
 
